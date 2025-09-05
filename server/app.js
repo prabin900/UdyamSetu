@@ -13,14 +13,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/materials', require('./routes/materials'));
-app.use('/api/workshops', require('./routes/workshops'));
-app.use('/api/sessions', require('./routes/sessions'));
-app.use('/api/blogs', require('./routes/blogs'));
-app.use('/api/certificates', require('./routes/certificates'));
-
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ 
@@ -39,7 +31,15 @@ app.get('/api/test', (req, res) => {
   });
 });
 
-// Serve frontend
+// API Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/materials', require('./routes/materials'));
+app.use('/api/workshops', require('./routes/workshops'));
+app.use('/api/sessions', require('./routes/sessions'));
+app.use('/api/blogs', require('./routes/blogs'));
+app.use('/api/certificates', require('./routes/certificates'));
+
+// Serve frontend (catch-all route - must be last)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
