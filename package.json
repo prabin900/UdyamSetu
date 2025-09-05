@@ -8,7 +8,7 @@
     "dev": "nodemon server/server.js",
     "clean": "node clean-setup.js",
     "fresh": "node clean-setup.js && npm start",
-    "build": "echo 'Build completed'",
+    "build": "echo 'Build completed - Static files served from client directory'",
     "test": "echo 'No tests specified'"
   },
   "keywords": ["entrepreneurship", "learning", "platform", "workshops"],
