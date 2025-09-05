@@ -30,6 +30,15 @@ app.get('/health', (req, res) => {
   });
 });
 
+// API test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    message: 'API is working!',
+    timestamp: new Date().toISOString(),
+    routes: ['/api/auth', '/api/workshops', '/api/materials', '/api/sessions']
+  });
+});
+
 // Serve frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
