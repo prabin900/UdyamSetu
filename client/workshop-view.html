@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Materials - UdyamSetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">UdyamSetu</div>
+                <div class="nav-links">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="#" onclick="auth.logout()">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h1 id="workshopTitle">Workshop Materials</h1>
+            <button id="generateCertBtn" onclick="generateCertificate()" class="btn btn-primary" style="margin-bottom: 20px;">Generate Certificate</button>
+            <div id="materials-container" class="materials-grid"></div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/materials.js"></script>
+    <script>
+        if (!auth.isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const workshopId = urlParams.get('id');
+
+        async function loadWorkshopMaterials() {
+            try {
+                const materialsData = await materials.getMaterials();
+                const workshopMaterials = materialsData.filter(m => m.workshop && m.workshop._id === workshopId);
+                
+                if (workshopMaterials.length > 0) {
+                    document.getElementById('workshopTitle').textContent = `${workshopMaterials[0].workshop.title} - Materials`;
+                }
+                
+                materials.renderMaterials(workshopMaterials);
+            } catch (error) {
+                console.error('Failed to load materials:', error);
+            }
+        }
+
+        async function generateCertificate() {
+            try {
+                const response = await fetch(`/api/certificates/generate/${workshopId}`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${auth.getToken()}` }
+                });
+                
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Certificate generated successfully!');
+                    document.getElementById('generateCertBtn').textContent = 'Certificate Generated';
+                    document.getElementById('generateCertBtn').disabled = true;
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                alert('Failed to generate certificate');
+            }
+        }
+
+        loadWorkshopMaterials();
+    </script>
+</body>
+</html>

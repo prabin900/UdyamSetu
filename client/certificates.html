@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates - UdyamSetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 80px 20px;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .certificates-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .certificate-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 30px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ff6b6b, #4facfe, #ffd700);
+            background-size: 400% 400%;
+            animation: borderGlow 4s ease infinite;
+            z-index: -1;
+            margin: -3px;
+            border-radius: 30px;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 35px 100px rgba(0, 0, 0, 0.2);
+        }
+        
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .certificate-badge {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .certificate-badge i {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .certificate-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .certificate-details {
+            margin-bottom: 30px;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 12px 20px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .detail-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .detail-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .detail-text {
+            color: #4a5568;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .certificate-id-badge {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            margin: 25px 0;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .download-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .download-button:hover::before {
+            left: 100%;
+        }
+        
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(45deg, #ff5252, #ffc107);
+        }
+        
+        .empty-achievement {
+            text-align: center;
+            padding: 100px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(30px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .empty-achievement::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .empty-icon {
+            font-size: 6rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .empty-title {
+            font-size: 2.5rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .empty-text {
+            color: #718096;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 35px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(45deg, #5a67d8, #6b46c1);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .certificates-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificate-card {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-trophy"></i> UdyamSetu
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#" onclick="auth.logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+        
+        <div class="hero-section">
+            <h1 class="hero-title">🏆 Achievement Hall</h1>
+            <p class="hero-subtitle">Celebrate your learning journey with these prestigious certificates</p>
+        </div>
+        
+        <div id="certificatesContainer"></div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const token = localStorage.getItem('token');
+        
+        async function loadCertificates() {
+            const response = await fetch('/api/certificates/my-certificates', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const certificates = await response.json();
+            displayCertificates(certificates);
+        }
+
+        function displayCertificates(certificates) {
+            const container = document.getElementById('certificatesContainer');
+            
+            if (certificates.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-achievement">
+                        <div class="empty-icon">🏅</div>
+                        <h3 class="empty-title">Your Trophy Room Awaits</h3>
+                        <p class="empty-text">Complete amazing workshops to unlock prestigious certificates and showcase your entrepreneurial achievements!</p>
+                        <a href="dashboard.html" class="cta-button">
+                            <i class="fas fa-rocket"></i> Start Learning
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="certificates-showcase">
+                    ${certificates.map(cert => `
+                        <div class="certificate-card">
+                            <div class="certificate-header">
+                                <div class="certificate-badge">
+                                    <i class="fas fa-medal"></i>
+                                </div>
+                                <h3 class="certificate-title">${cert.workshop.title}</h3>
+                            </div>
+                            
+                            <div class="certificate-details">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="detail-text">
+                                        Completed: ${new Date(cert.createdAt).toLocaleDateString('en-US', { 
+                                            year: 'numeric', 
+                                            month: 'long', 
+                                            day: 'numeric' 
+                                        })}
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="detail-text">
+                                        Time: ${new Date(cert.createdAt).toLocaleTimeString()}
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="detail-text">
+                                        Achievement Level: Expert
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="certificate-id-badge">
+                                🎯 Certificate ID: ${cert.certificateId}
+                            </div>
+                            
+                            <button onclick="downloadCertificate('${cert._id}', '${cert.workshop.title}', '${cert.certificateId}')" class="download-button">
+                                <i class="fas fa-download"></i>
+                                Download Trophy
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function downloadCertificate(certId, workshopTitle, certificateId) {
+            const user = auth.getUser();
+            const currentDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long', 
+                day: 'numeric'
+            });
+            
+            // Create PDF using jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a4'
+            });
+            
+            // Set background
+            doc.setFillColor(248, 249, 255);
+            doc.rect(0, 0, 297, 210, 'F');
+            
+            // Gold border
+            doc.setDrawColor(255, 215, 0);
+            doc.setLineWidth(3);
+            doc.rect(10, 10, 277, 190);
+            
+            // Inner border
+            doc.setDrawColor(102, 126, 234);
+            doc.setLineWidth(1);
+            doc.rect(20, 20, 257, 170);
+            
+            // Title
+            doc.setFontSize(32);
+            doc.setTextColor(45, 55, 72);
+            doc.text('Certificate of Completion', 148.5, 50, { align: 'center' });
+            
+            // Subtitle
+            doc.setFontSize(16);
+            doc.setTextColor(74, 85, 104);
+            doc.text('This is to certify that', 148.5, 70, { align: 'center' });
+            
+            // Recipient name
+            doc.setFontSize(28);
+            doc.setTextColor(102, 126, 234);
+            doc.text(user.name, 148.5, 90, { align: 'center' });
+            
+            // Completion text
+            doc.setFontSize(14);
+            doc.setTextColor(74, 85, 104);
+            doc.text('has successfully completed the entrepreneurship workshop', 148.5, 110, { align: 'center' });
+            
+            // Workshop title
+            doc.setFontSize(20);
+            doc.setTextColor(45, 55, 72);
+            doc.text(`"${workshopTitle}"`, 148.5, 130, { align: 'center' });
+            
+            // Achievement text
+            doc.setFontSize(12);
+            doc.setTextColor(74, 85, 104);
+            doc.text('demonstrating dedication to entrepreneurial learning and professional development.', 148.5, 150, { align: 'center' });
+            
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(113, 128, 150);
+            doc.text(`Date: ${currentDate}`, 30, 180);
+            doc.setFontSize(8);
+            doc.text('Prabin Singh, Director', 148.5, 180, { align: 'center' });
+            doc.text('UdyamSetu Platform', 148.5, 185, { align: 'center' });
+            doc.text(`ID: ${certificateId}`, 267, 180, { align: 'right' });
+            
+            // Signature line
+            doc.setDrawColor(45, 55, 72);
+            doc.setLineWidth(0.5);
+            doc.line(118.5, 175, 178.5, 175);
+            
+            // Add handwritten signature - Prabin
+            doc.setDrawColor(45, 55, 72);
+            doc.setLineWidth(1.5);
+            
+            // Create signature curves (handwritten style)
+            const sigX = 148.5;
+            const sigY = 170;
+            
+            // Letter 'P'
+            doc.line(sigX - 18, sigY - 8, sigX - 18, sigY + 1);
+            doc.line(sigX - 18, sigY - 8, sigX - 12, sigY - 8);
+            doc.line(sigX - 12, sigY - 8, sigX - 12, sigY - 4);
+            doc.line(sigX - 12, sigY - 4, sigX - 18, sigY - 4);
+            
+            // Letter 'r'
+            doc.line(sigX - 10, sigY - 5, sigX - 10, sigY + 1);
+            doc.line(sigX - 10, sigY - 3, sigX - 7, sigY - 5);
+            
+            // Letter 'a'
+            doc.ellipse(sigX - 3, sigY - 2, 2, 2.5);
+            doc.line(sigX - 1, sigY - 5, sigX - 1, sigY + 1);
+            
+            // Letter 'b'
+            doc.line(sigX + 3, sigY - 8, sigX + 3, sigY + 1);
+            doc.ellipse(sigX + 5, sigY - 2, 2, 2.5);
+            
+            // Letter 'i'
+            doc.line(sigX + 10, sigY - 5, sigX + 10, sigY + 1);
+            doc.circle(sigX + 10, sigY - 7, 0.5, 'F');
+            
+            // Letter 'n'
+            doc.line(sigX + 14, sigY - 5, sigX + 14, sigY + 1);
+            doc.line(sigX + 14, sigY - 3, sigX + 16, sigY - 5);
+            doc.line(sigX + 16, sigY - 5, sigX + 16, sigY + 1);
+            
+            // Signature flourish
+            doc.setLineWidth(0.8);
+            doc.line(sigX - 20, sigY + 3, sigX + 18, sigY + 3);
+            doc.line(sigX + 14, sigY + 3, sigX + 18, sigY - 1);
+            
+            // Download PDF
+            doc.save(`UdyamSetu_Certificate_${workshopTitle.replace(/\s+/g, '_')}_${certificateId}.pdf`);
+            
+            // Show success message
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+            btn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = 'linear-gradient(45deg, #ff6b6b, #feca57)';
+            }, 3000);
+        }
+
+        loadCertificates();
+    </script>
+</body>
+</html>

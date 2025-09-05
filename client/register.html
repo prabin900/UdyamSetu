@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - UdyamSetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 100%;
+            max-width: 450px;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .register-header h1 {
+            color: #2d3748;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .register-header h1 i {
+            color: #667eea;
+            font-size: 2rem;
+        }
+        
+        .register-header p {
+            color: #718096;
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+        
+        .btn-register {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .register-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .register-footer p {
+            color: #718096;
+            margin: 0;
+        }
+        
+        .register-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .otp-input {
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1><i class="fas fa-user-plus"></i> Create Account</h1>
+            <p>Join UdyamSetu and start your entrepreneurial journey</p>
+        </div>
+        
+        <form id="registerForm" style="display: block;">
+            <div class="form-group">
+                <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="password" placeholder="Create a strong password" required>
+            </div>
+            <button type="submit" class="btn-register">
+                <i class="fas fa-rocket"></i> Create Account
+            </button>
+        </form>
+
+        <form id="otpForm" style="display: none; text-align: center;">
+            <div style="color: #48bb78; font-size: 3rem; margin-bottom: 20px;">
+                <i class="fas fa-envelope-open-text"></i>
+            </div>
+            <h3 style="color: #2d3748; margin-bottom: 10px;">Verify Your Email</h3>
+            <p style="color: #718096; margin-bottom: 25px;">We've sent a 6-digit code to your email</p>
+            <div class="form-group">
+                <input type="text" id="otp" class="otp-input" maxlength="6" placeholder="000000" required>
+            </div>
+            <button type="submit" class="btn-register">
+                <i class="fas fa-check-circle"></i> Verify Email
+            </button>
+        </form>
+        
+        <div class="register-footer">
+            <p>Already have an account? <a href="login.html">Sign in here</a></p>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        let userEmail = '';
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('.btn-register');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitBtn.disabled = true;
+            
+            const userData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.message.includes('OTP sent')) {
+                    userEmail = userData.email;
+                    document.getElementById('registerForm').style.display = 'none';
+                    document.getElementById('otpForm').style.display = 'block';
+                    alert(`Registration successful! OTP sent to ${userData.email}. Please check your inbox (and spam folder).`);
+                } else {
+                    alert(result.message || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Registration failed. Please try again.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        document.getElementById('otpForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('.btn-register');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+            submitBtn.disabled = true;
+            
+            const otpData = {
+                email: userEmail,
+                otp: document.getElementById('otp').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/verify-otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(otpData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.message.includes('verified successfully')) {
+                    alert('Email verified successfully! You can now login.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(result.message || 'OTP verification failed');
+                    document.getElementById('otp').value = '';
+                    document.getElementById('otp').focus();
+                }
+            } catch (error) {
+                console.error('OTP verification error:', error);
+                alert('OTP verification failed. Please try again.');
+                document.getElementById('otp').value = '';
+                document.getElementById('otp').focus();
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

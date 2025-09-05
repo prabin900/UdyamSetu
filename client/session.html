@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessions - UdyamSetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .sessions-container {
+            padding: 20px 0;
+        }
+        
+        .sessions-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .sessions-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .sessions-header h1 i {
+            color: #ffd700;
+            font-size: 2.2rem;
+        }
+        
+        .sessions-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        .sessions-form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .sessions-form-card h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .sessions-form-card h2 i {
+            color: #667eea;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group label i {
+            margin-right: 8px;
+            color: #667eea;
+            width: 16px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+        
+        .btn-create {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .sessions-list-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .sessions-list-card h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .sessions-list-card h2 i {
+            color: #48bb78;
+        }
+        
+        .session-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(248,249,255,0.9));
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .session-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+        }
+        
+        .session-card h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .session-card h3 i {
+            color: #667eea;
+        }
+        
+        .session-card p {
+            color: #718096;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .session-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .session-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .sessions-header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .sessions-form-card,
+            .sessions-list-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    UdyamSetu
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="#" onclick="auth.logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container sessions-container">
+        <div class="sessions-header">
+            <h1><i class="fas fa-video"></i> Interactive Sessions</h1>
+            <p>Join live workshops and interactive learning sessions</p>
+        </div>
+        
+        <div id="adminSection" class="sessions-form-card" style="display: none;">
+            <h2><i class="fas fa-plus-circle"></i> Create New Session</h2>
+            
+            <form id="sessionForm">
+                <div class="form-group">
+                    <label for="sessionTitle"><i class="fas fa-heading"></i> Session Title</label>
+                    <input type="text" id="sessionTitle" placeholder="Enter session title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sessionLink"><i class="fas fa-link"></i> Meeting Link</label>
+                    <input type="url" id="sessionLink" placeholder="https://meet.google.com/..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sessionWorkshop"><i class="fas fa-chalkboard-teacher"></i> Workshop (Required)</label>
+                    <select id="sessionWorkshop" required>
+                        <option value="">Select Workshop</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-create">
+                    <i class="fas fa-plus"></i> Create Session
+                </button>
+            </form>
+        </div>
+        
+        <div class="sessions-list-card">
+            <h2><i class="fas fa-play-circle"></i> Available Sessions</h2>
+            
+            <div class="session-card">
+                <h3><i class="fab fa-google"></i> Google Meet Session</h3>
+                <p>Join our live entrepreneurship workshop and interact with experts and fellow entrepreneurs</p>
+                <a href="https://meet.google.com" target="_blank" class="session-btn">
+                    <i class="fas fa-video"></i> Join Google Meet
+                </a>
+            </div>
+            
+            <div class="session-card">
+                <h3><i class="fab fa-zoom"></i> Zoom Workshop</h3>
+                <p>Interactive business planning session with breakout rooms and collaborative activities</p>
+                <a href="https://zoom.us" target="_blank" class="session-btn">
+                    <i class="fas fa-users"></i> Join Zoom
+                </a>
+            </div>
+            
+            <div class="session-card">
+                <h3><i class="fab fa-youtube"></i> Live Stream</h3>
+                <p>Watch our live entrepreneurship talks and Q&A sessions with industry leaders</p>
+                <a href="https://youtube.com" target="_blank" class="session-btn">
+                    <i class="fas fa-play"></i> Watch Live
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/workshops.js"></script>
+    <script src="js/sessions.js"></script>
+    <script>
+        // Check authentication
+        if (!auth.isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+
+        // Show admin section if user is admin
+        if (auth.isAdmin()) {
+            document.getElementById('adminSection').style.display = 'block';
+            loadWorkshops();
+        }
+
+        // Load workshops for dropdown
+        async function loadWorkshops() {
+            try {
+                const workshopsData = await workshops.getWorkshops();
+                const select = document.getElementById('sessionWorkshop');
+                workshopsData.forEach(workshop => {
+                    const option = document.createElement('option');
+                    option.value = workshop._id;
+                    option.textContent = workshop.title;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Failed to load workshops:', error);
+            }
+        }
+
+        // Handle session form submission
+        document.getElementById('sessionForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const workshopId = document.getElementById('sessionWorkshop').value;
+            
+            if (!workshopId) {
+                alert('Please select a workshop');
+                return;
+            }
+            
+            const sessionData = {
+                title: document.getElementById('sessionTitle').value,
+                meetingLink: document.getElementById('sessionLink').value,
+                workshop: workshopId
+            };
+
+            try {
+                const result = await sessions.createSession(sessionData);
+                if (result.message === 'Session created successfully') {
+                    alert('Session created successfully!');
+                    document.getElementById('sessionForm').reset();
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                alert('Failed to create session');
+            }
+        });
+    </script>
+</body>
+</html>

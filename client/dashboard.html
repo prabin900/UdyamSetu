@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - UdyamSetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .dashboard-container {
+            padding: 20px 0;
+        }
+        
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .dashboard-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        .section-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section-card h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-card h2 i {
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+        
+        .admin-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .action-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .action-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .action-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .materials-viewer-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+            max-width: 250px;
+        }
+        
+        .materials-viewer-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(72, 187, 120, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #cbd5e0;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+        
+        .empty-state p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+            
+            .admin-actions {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .action-card {
+                padding: 20px 15px;
+            }
+            
+            .section-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">UdyamSetu</div>
+                <div class="nav-links">
+                    <span id="userName"></span>
+                    <a href="change-password.html">Change Password</a>
+                    <a href="#" onclick="auth.logout()">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container dashboard-container">
+        <div class="dashboard-header">
+            <h1 id="dashboardTitle"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+            <p>Welcome to your entrepreneurial learning hub</p>
+        </div>
+        
+        <!-- Admin Section -->
+        <div id="adminSection" style="display: none;">
+            <div class="section-card">
+                <h2><i class="fas fa-cog"></i> Admin Panel</h2>
+                <div class="admin-actions">
+                    <a href="workshop.html" class="action-card">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3>Create Workshop</h3>
+                    </a>
+                    <a href="upload.html" class="action-card">
+                        <i class="fas fa-upload"></i>
+                        <h3>Upload Material</h3>
+                    </a>
+                    <a href="session.html" class="action-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Create Session</h3>
+                    </a>
+                    <a href="blogs.html" class="action-card">
+                        <i class="fas fa-blog"></i>
+                        <h3>Manage Blogs</h3>
+                    </a>
+                    <a href="certificates.html" class="action-card">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Certificates</h3>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h2><i class="fas fa-chalkboard-teacher"></i> All Workshops</h2>
+                <div id="workshops-container" class="materials-grid"></div>
+            </div>
+            
+            <div class="section-card">
+                <h2><i class="fas fa-folder-open"></i> All Materials</h2>
+                <div id="materials-container" class="materials-grid"></div>
+            </div>
+        </div>
+        
+        <!-- Participant Section -->
+        <div id="participantSection">
+            <div class="section-card">
+                <h2><i class="fas fa-graduation-cap"></i> Available Workshops</h2>
+                <div id="participant-workshops-container" class="materials-grid"></div>
+                <div class="empty-state" id="workshopsEmpty" style="display: none;">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>No Workshops Available</h3>
+                    <p>Check back later for new workshops</p>
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h2><i class="fas fa-book-reader"></i> Learning Materials</h2>
+                <a href="materials-viewer.html" class="materials-viewer-btn">
+                    <i class="fas fa-eye"></i> Open Materials Viewer
+                </a>
+                <div id="participant-materials-container" class="materials-grid"></div>
+                <div class="empty-state" id="materialsEmpty" style="display: none;">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No Materials Available</h3>
+                    <p>Join workshops to access learning materials</p>
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h2><i class="fas fa-blog"></i> Community & Features</h2>
+                <div class="admin-actions">
+                    <a href="blogs.html" class="action-card">
+                        <i class="fas fa-blog"></i>
+                        <h3>Read Blogs</h3>
+                    </a>
+                    <a href="certificates.html" class="action-card">
+                        <i class="fas fa-certificate"></i>
+                        <h3>My Certificates</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/materials.js"></script>
+    <script src="js/workshops.js"></script>
+    <script>
+        // Check authentication
+        if (!auth.isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+
+        // Set user info
+        const user = auth.getUser();
+        document.getElementById('userName').textContent = user.name;
+        document.getElementById('dashboardTitle').innerHTML = `<i class="fas fa-tachometer-alt"></i> ${user.role === 'admin' ? 'Admin' : 'Participant'} Dashboard`;
+
+        // Show admin section if user is admin
+        if (auth.isAdmin()) {
+            document.getElementById('adminSection').style.display = 'block';
+        }
+
+        // Load workshops and materials
+        async function loadWorkshops() {
+            try {
+                const workshopsData = await workshops.getWorkshops();
+                let joinedWorkshops = [];
+                
+                if (!auth.isAdmin()) {
+                    joinedWorkshops = await workshops.getJoinedWorkshops();
+                    // For participants, render to participant container
+                    if (workshopsData && workshopsData.length > 0) {
+                        renderParticipantWorkshops(workshopsData, joinedWorkshops);
+                    } else {
+                        showSampleParticipantWorkshops();
+                    }
+                } else {
+                    // For admin, render to admin container
+                    if (workshopsData && workshopsData.length > 0) {
+                        workshops.renderWorkshops(workshopsData, joinedWorkshops);
+                    } else {
+                        showSampleWorkshops();
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load workshops:', error);
+                if (auth.isAdmin()) {
+                    showSampleWorkshops();
+                } else {
+                    showSampleParticipantWorkshops();
+                }
+            }
+        }
+        
+        function showSampleWorkshops() {
+            console.log('Showing sample workshops');
+            const sampleWorkshops = [
+                {
+                    _id: '1',
+                    title: 'Entrepreneurship Fundamentals',
+                    description: 'Learn the basics of starting and running a successful business.',
+                    date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                    materials: []
+                },
+                {
+                    _id: '2', 
+                    title: 'Digital Marketing Strategies',
+                    description: 'Master digital marketing techniques to grow your business.',
+                    date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+                    materials: []
+                }
+            ];
+            
+            const container = document.getElementById('workshops-container');
+            console.log('Workshop container found:', container);
+            
+            if (container && typeof workshops !== 'undefined' && workshops.renderWorkshops) {
+                workshops.renderWorkshops(sampleWorkshops, []);
+            } else {
+                // Fallback rendering if workshops.js not loaded
+                if (container) {
+                    container.innerHTML = sampleWorkshops.map(workshop => `
+                        <div class="material-card">
+                            <h3>${workshop.title}</h3>
+                            <p>${workshop.description}</p>
+                            <p><strong>Date:</strong> ${new Date(workshop.date).toLocaleDateString()}</p>
+                            <button class="btn btn-primary">View Details</button>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+        
+        function showSampleParticipantWorkshops() {
+            console.log('Showing sample participant workshops');
+            const sampleWorkshops = [
+                {
+                    _id: '1',
+                    title: 'Entrepreneurship Fundamentals',
+                    description: 'Learn the basics of starting and running a successful business.',
+                    date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                    materials: []
+                },
+                {
+                    _id: '2', 
+                    title: 'Digital Marketing Strategies',
+                    description: 'Master digital marketing techniques to grow your business.',
+                    date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+                    materials: []
+                }
+            ];
+            
+            renderParticipantWorkshops(sampleWorkshops, []);
+        }
+        
+        function renderParticipantWorkshops(workshopsData, joinedWorkshops = []) {
+            const container = document.getElementById('participant-workshops-container');
+            if (!container) return;
+            
+            const joinedIds = joinedWorkshops.map(w => w._id);
+            
+            container.innerHTML = workshopsData.map(workshop => {
+                const isJoined = joinedIds.includes(workshop._id);
+                return `
+                    <div class="workshop-card">
+                        <div class="workshop-info">
+                            <span class="workshop-category">Entrepreneurship</span>
+                            <h3>${workshop.title}</h3>
+                            <p>${workshop.description}</p>
+                            <div class="workshop-meta">
+                                <span><i class="far fa-calendar-alt"></i> ${new Date(workshop.date).toLocaleDateString()}</span>
+                                <span><i class="far fa-clock"></i> ${new Date(workshop.date).toLocaleTimeString()}</span>
+                            </div>
+                            <p><strong>Materials:</strong> ${workshop.materials.length}</p>
+                            ${workshop.meetingLink && isJoined ? `<p><a href="${workshop.meetingLink}" target="_blank" class="btn btn-outline" style="padding: 8px 16px; font-size: 14px;">Join Meeting</a></p>` : ''}
+                            
+
+                            
+                            <div style="margin-top: 15px;">
+                                ${isJoined ? 
+                                    `<div style="display: flex; gap: 10px; align-items: center;">
+                                        <button disabled style="background: #48bb78; color: white; padding: 10px 20px; border-radius: 8px; border: none;">✓ Joined</button>
+                                        <a href="workshop-view.html?id=${workshop._id}"><button class="btn btn-outline">View Materials</button></a>
+                                    </div>` :
+                                    `<button onclick="joinWorkshop('${workshop._id}')" class="btn btn-primary">Join Workshop</button>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function loadMaterials() {
+            try {
+                const materialsData = await materials.getMaterials();
+                
+                if (auth.isAdmin()) {
+                    if (materialsData && materialsData.length > 0) {
+                        materials.renderMaterials(materialsData);
+                    } else {
+                        showSampleMaterials();
+                    }
+                } else {
+                    // For participants, only show materials from joined workshops
+                    try {
+                        const joinedWorkshops = await workshops.getJoinedWorkshops();
+                        const joinedWorkshopIds = joinedWorkshops.map(w => w._id);
+                        const joinedMaterials = materialsData.filter(m => 
+                            m.workshop && joinedWorkshopIds.includes(m.workshop._id)
+                        );
+                        renderParticipantMaterials(joinedMaterials);
+                    } catch {
+                        renderParticipantMaterials([]);
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load materials:', error);
+                if (auth.isAdmin()) {
+                    showSampleMaterials();
+                } else {
+                    showSampleParticipantMaterials();
+                }
+            }
+        }
+        
+        function showSampleMaterials() {
+            console.log('Showing sample materials');
+            const sampleMaterials = [
+                {
+                    _id: '1',
+                    title: 'Business Plan Template',
+                    description: 'A comprehensive template for creating business plans.',
+                    type: 'pdf',
+                    workshop: { title: 'Entrepreneurship Fundamentals' }
+                },
+                {
+                    _id: '2',
+                    title: 'Marketing Strategy Guide', 
+                    description: 'Essential marketing strategies for startups.',
+                    type: 'video',
+                    workshop: { title: 'Digital Marketing' }
+                }
+            ];
+            
+            const container = document.getElementById('materials-container');
+            console.log('Materials container found:', container);
+            
+            if (container && typeof materials !== 'undefined' && materials.renderMaterials) {
+                materials.renderMaterials(sampleMaterials);
+            } else {
+                // Fallback rendering if materials.js not loaded
+                if (container) {
+                    container.innerHTML = sampleMaterials.map(material => `
+                        <div class="material-card">
+                            <span class="material-type type-${material.type}">${material.type.toUpperCase()}</span>
+                            <h3>${material.title}</h3>
+                            <p>${material.description}</p>
+                            <p><strong>Workshop:</strong> ${material.workshop.title}</p>
+                            <button class="btn btn-primary">View Material</button>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+        
+        function showSampleParticipantMaterials() {
+            console.log('Showing sample participant materials');
+            const sampleMaterials = [
+                {
+                    _id: '1',
+                    title: 'Business Plan Template',
+                    description: 'A comprehensive template for creating business plans.',
+                    type: 'pdf',
+                    workshop: { title: 'Entrepreneurship Fundamentals' }
+                }
+            ];
+            
+            renderParticipantMaterials(sampleMaterials);
+        }
+        
+        function renderParticipantMaterials(materialsData) {
+            const container = document.getElementById('participant-materials-container');
+            if (!container) return;
+            
+            container.innerHTML = materialsData.map(material => `
+                <div class="material-card">
+                    <span class="material-type type-${material.type}">${material.type.toUpperCase()}</span>
+                    <h3>${material.title}</h3>
+                    <p>${material.description}</p>
+                    <p><strong>Workshop:</strong> ${material.workshop.title}</p>
+                    <button class="btn btn-primary">View Material</button>
+                </div>
+            `).join('');
+        }
+
+        // Always show sample data for now
+        if (auth.isAdmin()) {
+            showSampleWorkshops();
+            showSampleMaterials();
+        } else {
+            showSampleParticipantWorkshops();
+            showSampleParticipantMaterials();
+        }
+        
+        // Also try to load real data
+        loadWorkshops();
+        loadMaterials();
+    </script>
+</body>
+</html>

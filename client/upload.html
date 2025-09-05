@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Materials - UdyamSetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .upload-container {
+            padding: 20px 0;
+        }
+        
+        .upload-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .upload-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .upload-header h1 i {
+            color: #ffd700;
+            font-size: 2.2rem;
+        }
+        
+        .upload-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        .upload-form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group label i {
+            margin-right: 8px;
+            color: #667eea;
+            width: 16px;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .file-upload-area {
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(247, 250, 252, 0.5);
+        }
+        
+        .file-upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .file-upload-area i {
+            font-size: 3rem;
+            color: #cbd5e0;
+            margin-bottom: 15px;
+        }
+        
+        .file-upload-area p {
+            color: #718096;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .btn-upload {
+            width: 100%;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .btn-upload:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .upload-header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .upload-form-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    UdyamSetu
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="#" onclick="auth.logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container upload-container">
+        <div class="upload-header">
+            <h1><i class="fas fa-cloud-upload-alt"></i> Upload Materials</h1>
+            <p>Share learning resources and materials with workshop participants</p>
+        </div>
+        
+        <div class="upload-form-card">
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label for="title"><i class="fas fa-heading"></i> Material Title</label>
+                    <input type="text" id="title" placeholder="Enter material title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left"></i> Description</label>
+                    <textarea id="description" rows="4" placeholder="Describe the material content and learning objectives" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="type"><i class="fas fa-tags"></i> Material Type</label>
+                    <select id="type" required>
+                        <option value="">Select Type</option>
+                        <option value="pdf">📄 PDF Document</option>
+                        <option value="video">🎥 Video Content</option>
+                        <option value="workshop">🔗 Workshop Link</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="workshop"><i class="fas fa-chalkboard-teacher"></i> Workshop (Required)</label>
+                    <select id="workshop" required>
+                        <option value="">Select Workshop</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="fileGroup">
+                    <label for="file"><i class="fas fa-file-upload"></i> Upload File</label>
+                    <div class="file-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to select PDF file or drag and drop</p>
+                        <input type="file" id="file" accept=".pdf" style="display: none;">
+                    </div>
+                </div>
+                
+                <div class="form-group" id="linkGroup" style="display: none;">
+                    <label for="link"><i class="fas fa-link"></i> External Link</label>
+                    <input type="url" id="link" placeholder="https://example.com">
+                </div>
+                
+                <button type="submit" class="btn-upload">
+                    <i class="fas fa-upload"></i> Upload Material
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/materials.js"></script>
+    <script src="js/workshops.js"></script>
+    <script>
+        // Check admin authentication
+        if (!auth.isAuthenticated() || !auth.isAdmin()) {
+            window.location.href = 'dashboard.html';
+        }
+
+        // Load workshops for dropdown
+        async function loadWorkshops() {
+            try {
+                const workshopsData = await workshops.getWorkshops();
+                const select = document.getElementById('workshop');
+                workshopsData.forEach(workshop => {
+                    const option = document.createElement('option');
+                    option.value = workshop._id;
+                    option.textContent = workshop.title;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Failed to load workshops:', error);
+            }
+        }
+
+        loadWorkshops();
+
+        // Handle file upload area click
+        document.querySelector('.file-upload-area').addEventListener('click', () => {
+            document.getElementById('file').click();
+        });
+        
+        // Handle file selection
+        document.getElementById('file').addEventListener('change', (e) => {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                document.querySelector('.file-upload-area p').textContent = `Selected: ${fileName}`;
+            }
+        });
+
+        // Handle type change
+        document.getElementById('type').addEventListener('change', (e) => {
+            const fileGroup = document.getElementById('fileGroup');
+            const linkGroup = document.getElementById('linkGroup');
+            
+            if (e.target.value === 'pdf') {
+                fileGroup.style.display = 'block';
+                linkGroup.style.display = 'none';
+            } else {
+                fileGroup.style.display = 'none';
+                linkGroup.style.display = 'block';
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('type', document.getElementById('type').value);
+            
+            const type = document.getElementById('type').value;
+            const workshopId = document.getElementById('workshop').value;
+            
+            if (!workshopId) {
+                alert('Please select a workshop');
+                return;
+            }
+            
+            formData.append('workshop', workshopId);
+            
+            if (type === 'pdf') {
+                const file = document.getElementById('file').files[0];
+                if (file) formData.append('file', file);
+            } else {
+                formData.append('link', document.getElementById('link').value);
+            }
+
+            try {
+                const result = await materials.createMaterial(formData);
+                if (result.message === 'Material created successfully') {
+                    alert('Material uploaded successfully!');
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                alert('Upload failed');
+            }
+        });
+    </script>
+</body>
+</html>
