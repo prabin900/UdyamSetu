@@ -2,7 +2,7 @@ const materials = {
   async getMaterials() {
     const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
       ? 'http://localhost:5555/api' 
-      : 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+      : 'https://udyamsetu-backend.railway.app/api'; // Replace with your actual backend URL
     const response = await fetch(`${API_BASE}/materials`, {
       headers: { 'Authorization': `Bearer ${auth.getToken()}` }
     });
@@ -12,7 +12,7 @@ const materials = {
   async createMaterial(formData) {
     const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
       ? 'http://localhost:5555/api' 
-      : 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+      : 'https://udyamsetu-backend.railway.app/api'; // Replace with your actual backend URL
     const response = await fetch(`${API_BASE}/materials`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${auth.getToken()}` },
