@@ -21,6 +21,15 @@ app.use('/api/sessions', require('./routes/sessions'));
 app.use('/api/blogs', require('./routes/blogs'));
 app.use('/api/certificates', require('./routes/certificates'));
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 // Serve frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
