@@ -27,16 +27,21 @@ const register = async (req, res) => {
     await OTP.deleteMany({ email });
     await new OTP({ email, otp }).save();
     
-    res.status(201).json({ 
-      message: 'Registration successful. Please check your email for OTP verification.',
-      email: email
-    });
-    
-    // Send email in background
-    sendOTP(email, otp).catch((emailError) => {
-      console.error('📧 Email failed for:', email);
-      console.log(`🔑 OTP: ${otp}`);
-    });
+    try {
+      await sendOTP(email, otp);
+      res.status(201).json({ 
+        message: 'Registration successful. OTP sent to your email.',
+        email: email
+      });
+    } catch (emailError) {
+      console.error('📧 Email service failed:', emailError.message);
+      res.status(201).json({ 
+        message: 'Registration successful. Email service unavailable.',
+        email: email,
+        otp: otp,
+        note: 'Use this OTP to verify your account'
+      });
+    }
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
