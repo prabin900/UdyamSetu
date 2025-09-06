@@ -44,6 +44,12 @@ const register = async (req, res) => {
     }
   } catch (error) {
     console.error('Registration error:', error);
+    console.error('Error stack:', error.stack);
+    
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'User already exists with this email' });
+    }
+    
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
