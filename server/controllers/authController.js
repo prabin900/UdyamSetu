@@ -27,21 +27,15 @@ const register = async (req, res) => {
     await OTP.deleteMany({ email });
     await new OTP({ email, otp }).save();
     
-    try {
-      await sendOTP(email, otp);
-      res.status(201).json({ 
-        message: 'Registration successful. OTP sent to your email.',
-        email: email
-      });
-    } catch (emailError) {
-      console.error('📧 Email service failed:', emailError.message);
-      res.status(201).json({ 
-        message: 'Registration successful. Email service unavailable.',
-        email: email,
-        otp: otp,
-        note: 'Use this OTP to verify your account'
-      });
-    }
+    // Skip email service - show OTP directly
+    console.log(`🔑 OTP for ${email}: ${otp}`);
+    
+    res.status(201).json({ 
+      message: 'Registration successful. Use the OTP below to verify.',
+      email: email,
+      otp: otp,
+      note: 'Email service unavailable - use this OTP to verify'
+    });
   } catch (error) {
     console.error('Registration error:', error);
     console.error('Error stack:', error.stack);

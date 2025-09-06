@@ -214,11 +214,16 @@
                 
                 const result = await response.json();
                 
-                if (response.ok && result.message.includes('OTP sent')) {
+                if (response.ok) {
                     userEmail = userData.email;
                     document.getElementById('registerForm').style.display = 'none';
                     document.getElementById('otpForm').style.display = 'block';
-                    alert(`Registration successful! OTP sent to ${userData.email}. Please check your inbox (and spam folder).`);
+                    
+                    if (result.otp) {
+                        alert(`Registration successful!\n\nYour OTP: ${result.otp}\n\nEmail service unavailable - use this OTP to verify.`);
+                    } else {
+                        alert(`Registration successful! OTP sent to ${userData.email}. Please check your inbox.`);
+                    }
                 } else {
                     alert(result.message || 'Registration failed');
                 }
