@@ -1,6 +1,13 @@
 const nodemailer = require('nodemailer');
 
+// Validate email configuration
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.error('❌ Email configuration missing!');
+  console.log('Required: EMAIL_USER and EMAIL_PASS environment variables');
+}
+
 const transporter = nodemailer.createTransport({
+  service: 'gmail',
   host: 'smtp.gmail.com',
   port: 587,
   secure: false,
@@ -10,8 +17,7 @@ const transporter = nodemailer.createTransport({
   },
   tls: {
     rejectUnauthorized: false
-  },
-  timeout: 30000
+  }
 });
 
 transporter.verify((error, success) => {

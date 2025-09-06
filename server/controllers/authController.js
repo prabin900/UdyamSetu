@@ -6,7 +6,13 @@ const { sendOTP, sendPasswordResetEmail } = require('../utils/emailService');
 
 const register = async (req, res) => {
   try {
+    console.log('Registration attempt:', req.body);
     const { name, email, password } = req.body;
+    
+    if (!name || !email || !password) {
+      console.log('Missing fields:', { name: !!name, email: !!email, password: !!password });
+      return res.status(400).json({ message: 'All fields are required' });
+    }
     
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -21,17 +27,22 @@ const register = async (req, res) => {
     await OTP.deleteMany({ email });
     await new OTP({ email, otp }).save();
     
-    try {
-      await sendOTP(email, otp);
-      res.status(201).json({ message: 'Registration successful. OTP sent to email for verification.' });
-    } catch (emailError) {
-      console.error('Email service error:', emailError.message);
-      console.log(`\n=== OTP FOR TESTING ===`);
-      console.log(`Email: ${email}`);
-      console.log(`OTP: ${otp}`);
-      console.log(`=====================\n`);
-      res.status(201).json({ message: 'Registration successful. OTP sent to email for verification.' });
-    }
+    // Send response immediately
+    res.status(201).json({ 
+      message: 'Registration successful. OTP is being sent to your email.',
+      email: email
+    });
+    
+    // Send email asynchronously (don't wait)
+    sendOTP(email, otp).then(() => {
+      console.log('✅ OTP sent successfully to:', email);
+    }).catch((emailError) => {
+      console.error('📧 Email service failed:', emailError.message);
+      console.log(`\n🔑 === OTP FOR ${email} ===`);
+      console.log(`📱 OTP CODE: ${otp}`);
+      console.log(`⏰ Valid for 10 minutes`);
+      console.log(`===============================\n`);
+    });
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
