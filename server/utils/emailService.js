@@ -7,6 +7,7 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
 }
 
 const transporter = nodemailer.createTransport({
+  service: 'gmail',
   host: 'smtp.gmail.com',
   port: 587,
   secure: false,
@@ -16,7 +17,10 @@ const transporter = nodemailer.createTransport({
   },
   tls: {
     rejectUnauthorized: false
-  }
+  },
+  connectionTimeout: 60000,
+  greetingTimeout: 30000,
+  socketTimeout: 60000
 });
 
 transporter.verify((error, success) => {
@@ -37,10 +41,10 @@ transporter.verify((error, success) => {
   }
 });
 
-const sendOTP = async (email, otp, retryCount = 0) => {
+const sendOTP = async (email, otp) => {
   try {
-    const mailOptions = {
-      from: `"UdyamSetu Platform" <${process.env.EMAIL_USER}>`,
+    // Use EmailJS or similar service that works with Railway
+    const emailData = {
       to: email,
       subject: 'UdyamSetu - Email Verification OTP',
       html: `
@@ -56,32 +60,48 @@ const sendOTP = async (email, otp, retryCount = 0) => {
       `
     };
 
-    console.log(`📧 Attempting to send OTP to: ${email} (Attempt ${retryCount + 1})`);
+    console.log(`📧 Attempting to send OTP to: ${email}`);
     
-    const result = await transporter.sendMail(mailOptions);
-    console.log('✅ OTP sent successfully!');
-    console.log('Message ID:', result.messageId);
-    console.log('Response:', result.response);
+    // Try SMTP first
+    const result = await transporter.sendMail({
+      from: `"UdyamSetu Platform" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: emailData.subject,
+      html: emailData.html
+    });
     
+    console.log('✅ OTP sent successfully via SMTP!');
     return result;
-  } catch (error) {
-    console.error('❌ Failed to send OTP:', error.message);
-    console.error('Error code:', error.code);
-    console.error('Error command:', error.command);
     
-    // Retry once for network issues
-    if (retryCount < 1 && (error.code === 'ECONNRESET' || error.code === 'ETIMEDOUT')) {
-      console.log('🔄 Retrying email send...');
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      return sendOTP(email, otp, retryCount + 1);
+  } catch (error) {
+    console.error('❌ SMTP failed:', error.message);
+    
+    // Fallback: Use fetch to send via webhook (if available)
+    try {
+      if (process.env.EMAIL_WEBHOOK_URL) {
+        const response = await fetch(process.env.EMAIL_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: email,
+            subject: 'UdyamSetu - Email Verification OTP',
+            text: `Your OTP: ${otp}`
+          })
+        });
+        
+        if (response.ok) {
+          console.log('✅ OTP sent via webhook!');
+          return { messageId: 'webhook-sent' };
+        }
+      }
+    } catch (webhookError) {
+      console.error('❌ Webhook also failed:', webhookError.message);
     }
     
-    // Log OTP for testing when email fails
-    console.log(`\n=== OTP FOR TESTING (EMAIL FAILED) ===`);
-    console.log(`Email: ${email}`);
-    console.log(`OTP: ${otp}`);
-    console.log(`Error: ${error.message}`);
-    console.log(`=====================================\n`);
+    console.log(`\n🔑 === OTP FOR ${email} ===`);
+    console.log(`📱 OTP: ${otp}`);
+    console.log(`⏰ Valid for 10 minutes`);
+    console.log(`===============================\n`);
     
     throw error;
   }
