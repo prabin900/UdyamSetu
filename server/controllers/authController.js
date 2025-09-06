@@ -27,21 +27,15 @@ const register = async (req, res) => {
     await OTP.deleteMany({ email });
     await new OTP({ email, otp }).save();
     
-    // Send response immediately
     res.status(201).json({ 
-      message: 'Registration successful. OTP is being sent to your email.',
+      message: 'Registration successful. Please check your email for OTP verification.',
       email: email
     });
     
-    // Send email asynchronously (don't wait)
-    sendOTP(email, otp).then(() => {
-      console.log('✅ OTP sent successfully to:', email);
-    }).catch((emailError) => {
-      console.error('📧 Email service failed:', emailError.message);
-      console.log(`\n🔑 === OTP FOR ${email} ===`);
-      console.log(`📱 OTP CODE: ${otp}`);
-      console.log(`⏰ Valid for 10 minutes`);
-      console.log(`===============================\n`);
+    // Send email in background
+    sendOTP(email, otp).catch((emailError) => {
+      console.error('📧 Email failed for:', email);
+      console.log(`🔑 OTP: ${otp}`);
     });
   } catch (error) {
     console.error('Registration error:', error);
