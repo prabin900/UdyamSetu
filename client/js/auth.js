@@ -1,6 +1,6 @@
 const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
   ? 'http://localhost:5555/api' 
-  : 'https://udyamsetu-backend.railway.app/api'; // Replace with your actual backend URL
+  : '/api';
 
 const auth = {
   async register(userData) {
