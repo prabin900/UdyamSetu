@@ -1,186 +1,58 @@
 # Contributing to UdyamSetu
 
-Thank you for your interest in contributing to UdyamSetu! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to UdyamSetu! 🎉
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v16.0.0 or higher)
-- MongoDB (v4.4 or higher)
-- Git
-
-### Setup Development Environment
-
-1. **Fork and Clone**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/UdyamSetu.git
-   cd UdyamSetu
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Setup**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
-
-4. **Start Development Server**
-   ```bash
-   npm run dev
-   ```
-
-## 📝 How to Contribute
-
-### 1. Reporting Issues
-- Use the GitHub issue tracker
-- Provide clear description and steps to reproduce
-- Include system information (OS, Node.js version, etc.)
-
-### 2. Feature Requests
-- Open an issue with the "enhancement" label
-- Describe the feature and its benefits
-- Consider implementation complexity
-
-### 3. Code Contributions
-
-#### Development Workflow
-1. **Create a Branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Make Changes**
-   - Follow existing code style
-   - Add comments for complex logic
-   - Update documentation if needed
-
-3. **Test Your Changes**
-   ```bash
-   npm start  # Test the application
-   ```
-
-4. **Commit Changes**
-   ```bash
-   git add .
-   git commit -m "feat: add new feature description"
-   ```
-
-5. **Push and Create Pull Request**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-## 📋 Code Standards
-
-### JavaScript/Node.js
-- Use ES6+ features
-- Follow async/await pattern
-- Use meaningful variable names
-- Add JSDoc comments for functions
-
-### HTML/CSS
-- Use semantic HTML
-- Follow BEM methodology for CSS
-- Ensure responsive design
-- Maintain accessibility standards
-
-### Git Commit Messages
-Use conventional commit format:
-- `feat:` New features
-- `fix:` Bug fixes
-- `docs:` Documentation changes
-- `style:` Code style changes
-- `refactor:` Code refactoring
-- `test:` Adding tests
-- `chore:` Maintenance tasks
-
-## 🏗️ Project Structure
-
-```
-udyamsetu/
-├── client/                 # Frontend files
-│   ├── css/               # Stylesheets
-│   ├── js/                # JavaScript files
-│   └── *.html             # HTML pages
-├── server/                # Backend files
-│   ├── controllers/       # Route handlers
-│   ├── middleware/        # Custom middleware
-│   ├── models/           # Database models
-│   ├── routes/           # API routes
-│   └── utils/            # Utility functions
-├── uploads/              # File storage
-└── docs/                 # Documentation
-```
-
-## 🧪 Testing
-
-### Manual Testing
-- Test all user flows
-- Verify responsive design
-- Check browser compatibility
-- Test file uploads and downloads
-
-### Security Testing
-- Verify authentication flows
-- Test authorization levels
-- Check input validation
-- Review file upload security
-
-## 📚 Documentation
-
-### Code Documentation
-- Add JSDoc comments for functions
-- Update README.md for new features
-- Document API endpoints
-- Include setup instructions
-
-### User Documentation
-- Update user guides
-- Add screenshots for UI changes
-- Document new features
-- Maintain troubleshooting guides
+1. Fork the repository
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/UdyamSetu.git`
+3. Create a branch: `git checkout -b feature/your-feature-name`
+4. Make your changes
+5. Test thoroughly
+6. Commit: `git commit -m "Add your feature"`
+7. Push: `git push origin feature/your-feature-name`
+8. Create a Pull Request
 
 ## 🐛 Bug Reports
 
-When reporting bugs, include:
-- **Environment**: OS, Node.js version, browser
-- **Steps to Reproduce**: Clear, numbered steps
-- **Expected Behavior**: What should happen
-- **Actual Behavior**: What actually happens
-- **Screenshots**: If applicable
-- **Error Messages**: Full error logs
+- Use GitHub Issues
+- Include steps to reproduce
+- Provide system information
+- Add screenshots if applicable
 
 ## 💡 Feature Requests
 
-For feature requests, include:
-- **Use Case**: Why is this feature needed?
-- **Proposed Solution**: How should it work?
-- **Alternatives**: Other approaches considered
-- **Additional Context**: Any relevant information
+- Check existing issues first
+- Describe the feature clearly
+- Explain the use case
+- Consider implementation complexity
 
-## 🔒 Security
+## 📝 Code Style
 
-- Never commit sensitive information
-- Use environment variables for secrets
-- Follow secure coding practices
-- Report security issues privately
+- Use consistent indentation (2 spaces)
+- Follow existing naming conventions
+- Add comments for complex logic
+- Write meaningful commit messages
 
-## 📞 Getting Help
+## 🧪 Testing
 
-- Check existing issues and discussions
-- Join our community discussions
-- Contact maintainers for urgent issues
+- Test all new features
+- Ensure existing tests pass
+- Add tests for new functionality
+- Test on different browsers/devices
 
-## 🎉 Recognition
+## 📋 Pull Request Guidelines
 
-Contributors will be recognized in:
-- README.md contributors section
-- Release notes
-- Project documentation
+- Keep PRs focused and small
+- Update documentation if needed
+- Link related issues
+- Ensure CI passes
+- Request review from maintainers
 
-Thank you for contributing to UdyamSetu! 🚀
+## 🤝 Code of Conduct
 
+Be respectful, inclusive, and professional in all interactions.
+
+---
+
+Happy contributing! 🚀
