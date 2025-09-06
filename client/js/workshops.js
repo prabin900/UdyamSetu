@@ -2,7 +2,7 @@ const workshops = {
   async createWorkshop(workshopData) {
     const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
       ? 'http://localhost:5555/api' 
-      : 'https://udyamsetu-backend.railway.app/api'; // Replace with your actual backend URL
+      : '/api';
     const response = await fetch(`${API_BASE}/workshops`, {
       method: 'POST',
       headers: { 
@@ -17,7 +17,7 @@ const workshops = {
   async getWorkshops() {
     const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
       ? 'http://localhost:5555/api' 
-      : 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+      : '/api';
     const response = await fetch(`${API_BASE}/workshops`, {
       headers: { 'Authorization': `Bearer ${auth.getToken()}` }
     });
@@ -27,7 +27,7 @@ const workshops = {
   async addMaterialToWorkshop(workshopId, materialId) {
     const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
       ? 'http://localhost:5555/api' 
-      : 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+      : '/api';
     const response = await fetch(`${API_BASE}/workshops/${workshopId}/materials`, {
       method: 'POST',
       headers: { 
@@ -42,7 +42,7 @@ const workshops = {
   async joinWorkshop(workshopId) {
     const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
       ? 'http://localhost:5555/api' 
-      : 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+      : '/api';
     const response = await fetch(`${API_BASE}/workshops/${workshopId}/join`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${auth.getToken()}` }
@@ -53,7 +53,7 @@ const workshops = {
   async getJoinedWorkshops() {
     const API_BASE = window.location.hostname === 'localhost' && window.location.port === '8080' 
       ? 'http://localhost:5555/api' 
-      : 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+      : '/api';
     const response = await fetch(`${API_BASE}/workshops/joined`, {
       headers: { 'Authorization': `Bearer ${auth.getToken()}` }
     });
