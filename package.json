@@ -10,7 +10,7 @@
     "fresh": "node clean-setup.js && npm start",
     "build": "echo 'Build completed - Static files served from client directory'",
     "test": "echo 'No tests specified'",
-    "vercel-build": "echo 'Vercel build completed'",
+    "vercel-build": "echo 'Vercel build completed - Updated'",
     "railway-build": "echo 'Railway build completed'"
   },
   "keywords": ["entrepreneurship", "learning", "platform", "workshops"],
