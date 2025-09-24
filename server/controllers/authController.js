@@ -39,10 +39,9 @@ const register = async (req, res) => {
       console.log(`🔑 OTP for ${email}: ${otp}`);
       
       res.status(201).json({ 
-        message: 'Registration successful. Email service unavailable.',
+        message: 'Registration successful. Check logs for OTP.',
         email: email,
-        otp: otp,
-        note: 'Use this OTP to verify your account'
+        note: 'Email service temporarily unavailable'
       });
     }
   } catch (error) {

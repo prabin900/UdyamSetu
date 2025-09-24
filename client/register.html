@@ -188,6 +188,26 @@
     </div>
 
     <script src="js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
+        
+        async function sendOTPEmail(email, otp) {
+            try {
+                const result = await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+                    to_email: email,
+                    otp_code: otp,
+                    from_name: 'UdyamSetu Platform'
+                });
+                console.log('✅ Email sent successfully:', result);
+                return true;
+            } catch (error) {
+                console.error('❌ Email failed:', error);
+                return false;
+            }
+        }
+    </script>
     <script>
         let userEmail = '';
 
