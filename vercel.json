@@ -2,6 +2,7 @@
   "version": 2,
   "outputDirectory": "client",
   "routes": [
+    { "handle": "filesystem" },
     {
       "src": "/health",
       "dest": "api/index.js",
