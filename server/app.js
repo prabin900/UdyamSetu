@@ -27,6 +27,15 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Duplicate health under /api for Vercel routing convenience
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 // API test endpoint
 app.get('/api/test', (req, res) => {
   res.json({ 

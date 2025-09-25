@@ -9,7 +9,13 @@
   "routes": [
     {
       "src": "/health",
-      "dest": "server/vercel.js"
+      "dest": "server/vercel.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/health",
+      "dest": "server/vercel.js",
+      "methods": ["GET"]
     },
     {
       "src": "/api/(.*)",
