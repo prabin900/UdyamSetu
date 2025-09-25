@@ -9,8 +9,8 @@ app.use(cors({
   origin: [
     process.env.FRONTEND_URL || 'http://localhost:8080', 
     'http://localhost:5555',
-    'https://udyamsetu-production-ac0d.up.railway.app',
-    'https://udyamsetu-backend.railway.app'
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined
   ],
   credentials: true
 }));
