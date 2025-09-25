@@ -10,8 +10,7 @@
     "fresh": "node clean-setup.js && npm start",
     "build": "echo 'Build completed - Static files served from client directory'",
     "test": "echo 'No tests specified'",
-    "vercel-build": "echo Vercel build step",
-    "railway-build": "echo Removed"
+    "vercel-build": "echo Vercel build step"
   },
   "keywords": ["entrepreneurship", "learning", "platform", "workshops"],
   "author": "UdyamSetu Team",
