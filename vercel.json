@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/health",
+      "dest": "server/vercel.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "server/vercel.js"
     },
