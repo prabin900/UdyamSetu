@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/",
+      "dest": "client/index.html"
+    },
+    {
       "src": "/health",
       "dest": "server/vercel.js",
       "methods": ["GET"]
@@ -28,11 +32,6 @@
     {
       "src": "/(.*)",
       "dest": "client/$1"
-    }
-    ,
-    {
-      "src": "/",
-      "dest": "client/index.html"
     }
   ]
 }
